@@ -39,7 +39,7 @@ const Login = () => {
 
         <p className="text-center my-7">
           {language.DontHaveAnAccount}
-          <Link to="/signup" className="text-blue-400 font-medium">&nbsp;{language.CreateAnAccount}</Link>
+          <Link to="/signup" className="text-primary font-medium">&nbsp;{language.CreateAnAccount}</Link>
         </p>
       </section>
 

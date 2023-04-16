@@ -38,7 +38,7 @@ const Signup = () => {
 
         <p className="text-center mt-6 mb-10">
           {language.AlreadyHaveAnAccount}
-          <Link to="/login" className="text-blue-400 font-medium">&nbsp;{language.LoginIntoYourAccount}</Link>
+          <Link to="/login" className="text-primary font-medium">&nbsp;{language.LoginIntoYourAccount}</Link>
         </p>
 
         <form onSubmit={handleSubmit}>

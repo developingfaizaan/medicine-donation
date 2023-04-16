@@ -31,7 +31,7 @@ const signup = async (req, res, next) => {
     const token = jwt.sign(
       { id: savedUser._id },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "365d" }
     );
 
     res.status(201).json({ user: { id: savedUser._id, name: savedUser.name, email: savedUser.email, role: savedUser.role, profilePhoto: savedUser.profilePhoto }, token });
@@ -71,7 +71,7 @@ const login = async (req, res, next) => {
     const token = jwt.sign(
       { id: existingUser._id },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "365d" }
     );
 
     res.status(201).json({ user: { id: existingUser._id, name: existingUser.name, email: existingUser.email, role: existingUser.role, profilePhoto: existingUser.profilePhoto }, token });

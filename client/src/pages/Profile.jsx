@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import FileBase from "react-file-base64";
 
-import { Error, PostCard, Loader, Button } from "../components";
+import { Error, MedicineCard, Loader, Button } from "../components";
 import { profilePosts, updateProfilePhoto } from "../api";
 import { nameInitialsGenerator } from "../utils";
 import { editIcon } from "../assets";
@@ -43,12 +43,12 @@ const ProfilePage = () => {
   };
 
   return (
-    <main className="w-full max-w-4xl my-20 mx-auto px-5 md:px-12 sm:px-32">
+    <main className="w-full mt-20 mx-auto">
       
       {loading && <Loader />}
 
       {!loading && user && (
-        <figure className="flex flex-col items-center gap-2">
+        <figure className="flex justify-center items-center gap-2 mb-16">
           <div className="inline-flex relative justify-center items-center w-36 h-36 bg-primary rounded-full">
             {user.profilePhoto ? (
               <div>
@@ -63,28 +63,32 @@ const ProfilePage = () => {
             }
           </div>
 
-          { edit && (
-            <>
+          <div className="flex flex-col">
+            <span className="text-xl my-1 font-medium">{user.name}</span>
+            <small className="text-white700 text-lg">{user.role}</small>
+          </div>
+
+          { edit && ( 
+            <div className="flex flex-col gap-2">
               <FileBase type="file" multiple={false} onDone={({ base64 }) => setImage(base64)} />
               <Button onClick={handleProfileChange} styles="w-2/4">Update Photo</Button>
-            </>
+            </div>
           )}
 
-          <div className="flex flex-col items-center mb-24">
-            <span className="text-xl my-1 font-medium">{user.name}</span>
-            <small className="text-white700 text-lg">{user.email}</small>
-          </div>
         </figure>
       )}
 
+          
       {error && <Error message={error} />}
 
       {loading === false && user.role !== "organization" && jobs.length === 0 && (
-        <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-9 text-center">No job posted by this user!</h2>
+        <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-9 text-center">No Medicine posted by this user!</h2>
         )
       }
       
-      {jobs && jobs.map((job) => <PostCard job={job} key={job._id} /> )}
+      <div className="w-full max-w-7xl m-auto sm:px-32 pb-5 flex gap-6 flex-wrap">
+        {jobs && jobs.map((job) => <MedicineCard job={job} key={job._id} /> )}
+      </div>
     </main>
   );
 };

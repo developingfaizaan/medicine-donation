@@ -1,19 +1,23 @@
 const Joi = require("joi");
 
+
+
 const createJobValidation = (data) => {
   const schema = Joi.object({
-    title: Joi.string().required().min(3).max(50),
+    name: Joi.string().required().min(3).max(50),
 
     description: Joi.string().required(),
 
-    location: Joi.string().required(),
+    expiry: Joi.string().required(),
     
-    phoneNo: Joi.string().required(),
+    manf: Joi.string().required(),
         
-    payment: Joi.number().required(),
-
-    germanLang: Joi.string().lowercase().valid("no", "beginner", "intermediate", "advanced", "fluent"),
-
+    qty: Joi.number().required(),
+    
+    condition: Joi.string().lowercase().valid(["sealed", "unopened", "partially used"]),
+    
+    contact: Joi.string().required(),
+  
   });
 
   return schema.validate(data);

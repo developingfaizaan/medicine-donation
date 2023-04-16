@@ -46,16 +46,16 @@ const getJob = async (req, res, next) => {
 };
 
 const createJob = async (req, res, next) => {
-  const { title, description, location, phoneNo, payment, germanLang, postedBy } = req.body;
+  const { name, description, expiry, manf, qty, condition, contact, image, postedBy } = req.body;
  
   try {
     // Validation
-    const { error } = createJobValidation({ title, description, location, phoneNo, payment, germanLang: germanLang.toLowerCase() });
+    // const { error } = createJobValidation({ name, description, expiry, manf, qty, condition: condition.toLowerCase(), contact });
 
-    if (error) {
-      res.status(400);
-      throw new Error(error.details[0].message);
-    }
+    // if (error) {
+    //   res.status(400);
+    //   throw new Error(error.details[0].message);
+    // }
 
     const user = await User.findById(req.userId);
     
@@ -64,7 +64,7 @@ const createJob = async (req, res, next) => {
       throw new Error(`❌ Orgnaization role cannot post a job!`);
     }
     
-    const newJob = await JobListing.create({ title, description, location, phoneNo, payment, germanLang, postedBy });
+    const newJob = await JobListing.create({ name, description, expiry, manf, qty, condition, contact, image, postedBy });
 
     res.status(200).json({ error: false, post: newJob });
   } catch (error) {
@@ -74,17 +74,17 @@ const createJob = async (req, res, next) => {
 
 const updateJob = async (req, res, next) => {
   const { id } = req.params;
+  const { name, description, expiry, manf, qty, condition, contact, image, postedBy } = req.body;
   
-  const { title, description, location, phoneNo, payment, germanLang, postedBy } = req.body;
-
+  
   try {
-    // Validation
-    const { error } = createJobValidation({ title, description, location, phoneNo, payment, germanLang: germanLang.toLowerCase() });
+    // // Validation
+    // const { error } = createJobValidation({ title, description, location, phoneNo, payment, germanLang: germanLang.toLowerCase() });
 
-    if (error) {
-      res.status(400);
-      throw new Error(error.details[0].message);
-    }
+    // if (error) {
+    //   res.status(400);
+    //   throw new Error(error.details[0].message);
+    // }
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       res.status(404);
@@ -98,7 +98,7 @@ const updateJob = async (req, res, next) => {
       throw new Error(`🔍 No Job with id: ${id}`);
     }
 
-    const updatedJob = { title, description, location, phoneNo, payment, germanLang, postedBy, _id: id };
+    const updatedJob = { name, description, expiry, manf, qty, condition, contact, image: image ? image : job.image, postedBy, _id: id };
 
     const newJob = await JobListing.findByIdAndUpdate(id, updatedJob, { new: true });
 

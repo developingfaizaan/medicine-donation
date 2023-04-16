@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import FileBase from "react-file-base64";
+
 
 import { Input, Textarea, Button, Error, Select } from "../components";
 import { createJob, updateJob } from "../api";
 import { useAuth } from "../context/auth";
-import { useTranslate } from "../context/translate";
 
 const CreatePage = () => {
   const { user } = useAuth();
-  const { language } = useTranslate();
-  const [job, setJob] = useState({ title: "", description: "", location: "", phoneNo: "", payment: "", germanLang: "beginner", postedBy: JSON.parse(localStorage.getItem("auth")).user.id });
+  const [job, setJob] = useState({ name: "", description: "", expiry: "", manf: "", qty: "", condition: "sealed", contact: "", image: "", postedBy: JSON.parse(localStorage.getItem("auth")).user.id });
   const [error, setError] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
   const locationUrl = useLocation();
@@ -19,9 +19,9 @@ const CreatePage = () => {
     if (locationUrl.state) {
       setIsUpdating(true);
 
-      const { title, description, location, phoneNo, payment, germanLang } = locationUrl.state;
+      const { name, description, expiry, manf, qty, condition, contact, image } = locationUrl.state;
 
-      setJob({ title, description, location, phoneNo, payment, germanLang, postedBy: JSON.parse(localStorage.getItem("auth")).user.id });
+      setJob({ name, description, expiry, manf, qty, condition, contact, image, postedBy: JSON.parse(localStorage.getItem("auth")).user.id });
     }
   }, [locationUrl.state]);
 
@@ -31,11 +31,14 @@ const CreatePage = () => {
       if (isUpdating) {
         const { data } = await updateJob(locationUrl.state._id, job);
 
+        console.log(data);
         if (data.error) return setError(data.message);
       } else {
         const { data } = await createJob(job);
 
         if (data.error) return setError(data.message);
+
+        console.log(data.error);
       }
 
       navigate(`/user/${user.user.id}`);
@@ -55,17 +58,24 @@ const CreatePage = () => {
 
   return (
     <main className={`w-full max-w-4xl m-auto px-5 md:px-12 sm:px-32 py-20`}>
-      <h1 className="text-3xl sm:text-4xl font-semibold text-center mb-8 sm:mb-14">{language.CreateJob}!</h1>
+      <h1 className="text-3xl sm:text-4xl font-semibold text-center mb-8 sm:mb-14">Donate Your Unused Medicines!</h1>
       {error && <Error message={error} />}
 
       <form onSubmit={handleSubmit}>
-        <Input label={language.Title} type="text" value={job.title} onChange={(e) => setJob({ ...job, title: e.target.value })} />
-        <Textarea label={language.Description} type="text" value={job.description} onChange={(e) => setJob({ ...job, description: e.target.value })} />
-        <Input label={language.Location} type="text" value={job.location} onChange={(e) => setJob({ ...job, location: e.target.value })} />
-        <Input label={language.Contact} type="text" value={job.phoneNo} onChange={(e) => setJob({ ...job, phoneNo: e.target.value })} />
-        <Input label={language.Payment} type="number" value={job.payment} onChange={(e) => setJob({ ...job, payment: e.target.value })} />
-        <Select label={language.GermanLangProf} value={job.germanLang} onChange={(e) => setJob({ ...job, germanLang: e.target.value })} items={Object.values(language.germanLang)} itemValues={Object.keys(language.germanLang)} />
-        <Button type="submit">{language.CreateJob}</Button>
+        <Input label="Name of Medicine" type="text" value={job.name} onChange={(e) => setJob({ ...job, name: e.target.value })} />
+        <Input label="Description of Medicine" type="text" value={job.description} onChange={(e) => setJob({ ...job, description: e.target.value })} />
+        <Input label="Expiry date" type="text" value={job.expiry} onChange={(e) => setJob({ ...job, expiry: e.target.value })} />
+        <Input label="Manufacturer's name" type="text" value={job.manf} onChange={(e) => setJob({ ...job, manf: e.target.value })} />
+        <Input label="Quantity of medicine available for donation" type="number" value={job.qty} onChange={(e) => setJob({ ...job, qty: e.target.value })} />
+        <Select label="Condition of the medicine" value={job.condition} onChange={(e) => setJob({ ...job, condition: e.target.value })} items={["Sealed", "Unopened", "Partially Used"]} />
+        <Textarea label="Contact details with phone number" type="text" value={job.contact} onChange={(e) => setJob({ ...job, contact: e.target.value })} />
+        <div className="my-7">
+            <label className="block mb-2 text-white700 text-md">Medicine Image</label>
+            <div className="py-3 px-5 font-poppins text-gray900 bg-white border-2 border-white200 rounded-[4px] outline-none focus:outline-primary ease-out duration-200 w-full placeholder:normal placeholder:text-white400">
+              <FileBase type="file" multiple={false} onDone={({ base64 }) => setJob({ ...job, image: base64 })} />
+            </div>
+          </div>
+        <Button type="submit">List for Donation</Button>
       </form>
     </main>
   );

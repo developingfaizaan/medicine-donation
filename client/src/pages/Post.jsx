@@ -5,7 +5,7 @@ import { useAuth } from "../context/auth";
 import { fetchJob, deleteJob } from "../api";
 import { Button, Avatar, Loader } from "../components";
 import { useTranslate } from "../context/translate";
-import { phoneIcon, mailIcon, dateIcon, locationIcon, deleteIcon, editIcon } from "../assets";
+import { deleteIcon, editIcon } from "../assets";
 
 const PostPage = () => {
   const [error, setError] = useState();
@@ -44,7 +44,16 @@ const PostPage = () => {
 
   const handleEdit = () => navigate("/create", { state: job });
 
-  if (!id) return <h1>No Job with this ID</h1>;
+  if (!id) return <h1>No Medicine with this ID</h1>;
+
+
+  const sendMail = () => {
+    console.log("CLicked")
+    const mailto = `mailto:${job.postedBy.email}?subject=Want the Donation of ${job.name}&body=${"Please Give us this medicine"}`;
+    window.location.href = mailto
+    console.log("Done!");
+  }
+  
 
   return (
     <main className="w-full max-w-4xl my-20 mx-auto px-5 md:px-12 sm:px-32">
@@ -68,7 +77,7 @@ const PostPage = () => {
             <div className="flex gap-10 text-white700">
               {job.postedBy._id === user?.user?.id &&
               (location.pathname.startsWith("/user") ||
-                location.pathname.startsWith("/job")) ? (
+                location.pathname.startsWith("/medicine")) ? (
                 <>
                   <button className="sm:flex items-center gap-1" title="Edit Job" onClick={handleEdit}>
                     <img src={editIcon} alt="edit" />
@@ -82,42 +91,47 @@ const PostPage = () => {
             </div>
           </header>
 
-          <div className="flex justify-between my-4">
-            <div className="flex items-center my-7">
-              <img src={locationIcon} alt="Location" className="mr-2" />
-              <p className="font-medium text-lg">{job.location}</p>
+          <figure className="flex gap-8 my-12">
+            <img src={job.image} alt={job.name}  />
+            {/* object-contain	 */}
+
+            <div className="mt-5">
+              <h2 className="text-2xl font-medium text-gray-900">{job.name}</h2>
+              <p className="my-3 text-gray700 whitespace-pre-line">{job.description}</p>
             </div>
-            <div className="flex items-center my-7">
-              <img src={dateIcon} alt="Date" className="mr-2" />
-              <p className="font-medium text-lg">{new Date(job.createdAt).toLocaleDateString()}</p>
-            </div>
+          </figure>
+
+
+
+          <div className="flex gap-2 mt-10">
+            <h4 className="text-lg">Expiry Date:</h4>
+            <p className="font-semibold text-lg text-primary">{job.expiry}</p>
           </div>
 
-          <h2 className="text-2xl font-medium text-gray-900">{job.title}</h2>
-          <a className="block mt-2 ml-auto w-max text-gray700 font-semibold hover:text-primaryDark hover:translate-x-1 transition-transform" href={`https://translate.google.co.in/?sl=auto&tl=en&text=${job.description}&op=translate`} target="_blank" rel="noreferrer">Translate to English</a>
-          <p className="my-3 text-gray700 whitespace-pre-line">{job.description}</p>
-
-          <div className="flex items-center gap-2 mt-10">
-            <h4 className="text-lg">{language.Payment}:</h4>
-            <p className="font-semibold text-xl text-primary">$<span>{job.payment}</span>/day</p>
+          <div className="flex gap-2 mt-5">
+            <h4 className="text-lg">Quantity of medicine:</h4>
+            <p className="font-semibold text-lg text-primary">{job.qty}</p>
           </div>
 
-          <div className="flex gap-2 mt-5 ">
-            <h4 className="text-lg">{language.GermanLangProf}:</h4>
-            <p className="font-semibold text-lg text-primary">{job.germanLang.toUpperCase()}</p>
+          <div className="flex items-center gap-2 mt-5">
+            <h4 className="text-lg">Manufacture Company:</h4>
+            <p className="font-semibold text-xl text-primary">{job.manf}</p>
           </div>
+
+          <div className="flex items-center gap-2 mt-5">
+            <h4 className="text-lg">Condition of medicine:</h4>
+            <p className="font-semibold text-xl text-primary">{job.condition}</p>
+          </div>
+
+          {/* name, description, expiry, manf, qty, condition, contact, image */}
+        
 
           {user ? (
             <div className="mt-5">
-              <h4 className="text-lg">{language.ContactInfo}:</h4>
-              <div className="p-4">
-                <div className="flex items-center">
-                  <img src={phoneIcon} alt="Phone" className="mr-2" />
-                  <p className="font-medium text-lg">{job.phoneNo}</p>
-                </div>
-                <div className="flex items-center my-4">
-                  <img src={mailIcon} alt="Email" className="mr-2" />
-                  <p className="font-medium text-lg">{job.postedBy.email}</p>
+              <h4 className="text-lg">Contact Info:</h4>
+              <div className="pt-1">
+                <div className="flex items-center"> 
+                  <p className="font-semibold text-lg text-primary">{job.contact}</p>
                 </div>
               </div>
             </div>
@@ -126,6 +140,14 @@ const PostPage = () => {
               <Link to="/login"><Button>{language.LoginToSeeDetails}</Button></Link>
             </div>
           )}
+
+          {user && user?.user?.role === "organization" ? (
+            <div className="my-10">
+              <a href={`mailto:${job.postedBy.email}?subject=${"Want Donation of " + job.name}&body=${"Please give us this medicine"}`} target="_blank" rel="nofollow" >
+                <Button>Place a request to receive medicine</Button>
+              </a>
+            </div>
+          ): ""}
         </>
       )}
     </main>

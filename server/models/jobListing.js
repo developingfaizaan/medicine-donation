@@ -3,7 +3,7 @@ const { ObjectId } = mongoose.Schema.Types;
 
 const jobListingSchema = mongoose.Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
     },
@@ -13,33 +13,41 @@ const jobListingSchema = mongoose.Schema(
       required: true,
     },
 
-    location: {
+    expiry: {
       type: String,
       required: true,
     },
 
-    phoneNo: {
+    manf: {
       type: String,
       required: true,
     },
 
-    payment: {
+    qty: {
       type: Number,
       required: true
     },
-
-    germanLang: {
+    
+    condition: {
       type: String,
-      enum: ["no", "beginner", "intermediate", "advanced", "fluent"],
-      default: "no",
+      enum: ["sealed", "unopened", "partially used"],
+      default: "",
       required: true,
     },
+
+    contact: {
+      type: String,
+      required: true
+    },
+
+    image: String,
 
     postedBy: {
       type: ObjectId,
       ref: "User",
       required: true,
     },
+    
   },
   { timestamps: true }
 );

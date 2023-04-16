@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import { fetchJobs } from "../api";
 import { PostCard, Loader } from "../components";
+import MedicineCard from "../components/MedicineCard";
 
 const HomePage = () => {
   const [jobs, setJobs] = useState([]);
@@ -17,7 +18,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <main className="w-full max-w-4xl m-auto px-5 md:px-12 sm:px-32 py-20">
+    <main className="w-full max-w-7xl m-auto sm:px-32 py-20 flex gap-6 flex-wrap justify-center">
       
       {loading && <Loader />}
 
@@ -27,7 +28,8 @@ const HomePage = () => {
         </h1>
       )}
 
-      {jobs && jobs.map((job) => <PostCard job={job} key={job._id} /> )}
+      {/* {jobs && jobs.map((job) => <PostCard job={job} key={job._id} /> )} */}
+      {jobs && jobs.map((job) => <MedicineCard job={job} key={job._id} /> )}
     </main>
   );
 };
