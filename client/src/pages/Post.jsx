@@ -47,15 +47,6 @@ const PostPage = () => {
 
   if (!id) return <h1>No Medicine with this ID</h1>;
 
-
-  const sendMail = () => {
-    console.log("CLicked")
-    const mailto = `mailto:${job.postedBy.email}?subject=Want the Donation of ${job.name}&body=${"Please Give us this medicine"}`;
-    window.location.href = mailto
-    console.log("Done!");
-  }
-  
-
   return (
     <main className="w-full max-w-4xl my-20 mx-auto px-5 md:px-12 sm:px-32">
       {error && (
@@ -92,10 +83,9 @@ const PostPage = () => {
             </div>
           </header>
 
-          <figure className="flex gap-8 my-12">
+          <figure className="flex flex-col md:flex-row gap-8 my-12">
             <img src={job.image} alt={job.name}  />
-            {/* object-contain	 */}
-
+            
             <div className="mt-5">
               <h2 className="text-2xl font-medium text-gray-900">{job.name}</h2>
               <p className="my-3 text-gray700 whitespace-pre-line">{job.description}</p>
