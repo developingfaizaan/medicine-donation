@@ -6,6 +6,7 @@ import { fetchJob, deleteJob } from "../api";
 import { Button, Avatar, Loader } from "../components";
 import { useTranslate } from "../context/translate";
 import { deleteIcon, editIcon } from "../assets";
+import {emailBodyGenerate} from '../utils'
 
 const PostPage = () => {
   const [error, setError] = useState();
@@ -143,12 +144,13 @@ const PostPage = () => {
 
           {user && user?.user?.role === "organization" ? (
             <div className="my-10">
-              <a href={`mailto:${job.postedBy.email}?subject=${"Want Donation of " + job.name}&body=${"Please give us this medicine"}`} target="_blank" rel="nofollow" >
+              <a href={`mailto:${job.postedBy.email}?subject=${"Want Donation of " + job.name}&body=${emailBodyGenerate(user.user.name, job.name)}`} target="_blank" rel="nofollow" >
                 <Button>Place a request to receive medicine</Button>
               </a>
             </div>
           ): ""}
         </>
+        
       )}
     </main>
   );
