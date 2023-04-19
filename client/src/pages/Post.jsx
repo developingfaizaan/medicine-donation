@@ -43,7 +43,7 @@ const PostPage = () => {
     }
   };
 
-  const handleEdit = () => navigate("/create", { state: job });
+  const handleEdit = () => navigate("/donate", { state: job });
 
   if (!id) return <h1>No Medicine with this ID</h1>;
 

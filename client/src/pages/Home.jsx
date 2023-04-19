@@ -24,7 +24,7 @@ const HomePage = () => {
 
       {!loading && jobs.length === 0 && (
         <h1 className="text-3xl sm:text-4xl font-semibold text-center mb-8 sm:mb-14">
-          No jobs to show!
+          No Medicines to show!
         </h1>
       )}
 
