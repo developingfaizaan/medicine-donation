@@ -25,6 +25,11 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 // Routes
 app.use("/job", jobRoutes);
 app.use("/auth", authRoutes);
