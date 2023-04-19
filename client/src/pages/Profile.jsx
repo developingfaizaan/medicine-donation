@@ -86,7 +86,7 @@ const ProfilePage = () => {
         )
       }
       
-      <div className="w-full max-w-7xl m-auto sm:px-32 pb-5 flex gap-6 flex-wrap">
+      <div className="w-full max-w-7xl m-auto sm:px-32 pb-5 flex justify-center gap-6 flex-wrap">
         {jobs && jobs.map((job) => <MedicineCard job={job} key={job._id} /> )}
       </div>
     </main>

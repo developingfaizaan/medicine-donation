@@ -1,14 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 
 import { useAuth } from "../context/auth";
-import { useTranslate } from "../context/translate";
-import { logo, logoutIcon } from "../assets";
+import { logo } from "../assets";
 
 const generateActiveStyle = ({ isActive }) => isActive ? { color: "#12A796", fontWeight: "bold" } : {};
 
 const Navbar = () => {
   const { user, logout } = useAuth();
-  const { language } = useTranslate();
 
   return (
     <header className="flex flex-col pt-5 pb-2 sm:flex-row items-center justify-between px-5 sm:h-20 m-auto max-w-7xl border-b-2 border-black200 sm:border-none">
