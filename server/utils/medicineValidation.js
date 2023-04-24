@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 
 
-const createJobValidation = (data) => {
+const createmedicineValidation = (data) => {
   const schema = Joi.object({
     name: Joi.string().required().min(3).max(50),
 
@@ -23,4 +23,4 @@ const createJobValidation = (data) => {
   return schema.validate(data);
 };
 
-module.exports = { createJobValidation };
+module.exports = { createmedicineValidation };

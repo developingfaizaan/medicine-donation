@@ -7,7 +7,7 @@ const RoleRoute = ({ children }) => {
   if (user) {
 
     if (user.user.role === "donor") {
-      console.log("⚠️ You cannot access the HomePage - Job Listing Page!");
+      console.log("⚠️ You cannot access the HomePage - medicine Listing Page!");
      
       return <Navigate to={`/user/${user?.user?.id}`} />;
     }

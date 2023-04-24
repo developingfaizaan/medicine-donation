@@ -11,7 +11,7 @@ import { useAuth } from "../context/auth";
 const ProfilePage = () => {
   const { id } = useParams();
   const { user: currentUser} = useAuth();
-  const [jobs, setJobs] = useState([]);
+  const [medicines, setmedicines] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [edit, setEdit] = useState(false);
@@ -25,9 +25,9 @@ const ProfilePage = () => {
 
         if (data.user.role === "organization") return setLoading(false);
 
-        if (!data.jobs) return setError(data.message);
+        if (!data.medicines) return setError(data.message);
         
-        setJobs(data.jobs.reverse());
+        setmedicines(data.medicines.reverse());
         setLoading(false);
       })
       .catch((error) => setError(error.response.data.message));
@@ -81,13 +81,13 @@ const ProfilePage = () => {
           
       {error && <Error message={error} />}
 
-      {loading === false && user.role !== "organization" && jobs.length === 0 && (
+      {loading === false && user.role !== "organization" && medicines.length === 0 && (
         <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-9 text-center">No Medicine posted by this user!</h2>
         )
       }
       
       <div className="w-full max-w-7xl m-auto sm:px-32 pb-5 flex justify-center gap-6 flex-wrap">
-        {jobs && jobs.map((job) => <MedicineCard job={job} key={job._id} /> )}
+        {medicines && medicines.map((medicine) => <MedicineCard medicine={medicine} key={medicine._id} /> )}
       </div>
     </main>
   );

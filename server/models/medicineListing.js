@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
 
-const jobListingSchema = mongoose.Schema(
+const medicineListingSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -52,6 +52,6 @@ const jobListingSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const JobListing = mongoose.model("JobListing", jobListingSchema);
+const medicineListing = mongoose.model("MedicineListing", medicineListingSchema);
 
-module.exports = JobListing;
+module.exports = medicineListing;

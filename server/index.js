@@ -6,7 +6,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const { notFound, errorHandler } = require("./middlewares/errorHandler");
-const jobRoutes = require("./routes/jobListing");
+const medicineRoutes = require("./routes/medicineListing");
 const authRoutes = require("./routes/auth");
 
 const app = express();
@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use("/job", jobRoutes);
+app.use("/medicine", medicineRoutes);
 app.use("/auth", authRoutes);
 
 // Error Handling Middlewares

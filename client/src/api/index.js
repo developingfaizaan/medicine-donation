@@ -13,16 +13,16 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-// Job
-export const fetchJobs = () => API.get("/job");
-export const fetchJob = (id) => API.get(`/job/${id}`);
-export const createJob = (newJob) => API.post(`/job`, newJob);
-export const updateJob = (id, updatedJob) =>
-  API.patch(`/job/${id}`, updatedJob);
-export const deleteJob = (id) => API.delete(`/job/${id}`);
+// medicine
+export const fetchmedicines = () => API.get("/medicine");
+export const fetchmedicine = (id) => API.get(`/medicine/${id}`);
+export const createmedicine = (newmedicine) => API.post(`/medicine`, newmedicine);
+export const updatemedicine = (id, updatedmedicine) =>
+  API.patch(`/medicine/${id}`, updatedmedicine);
+export const deletemedicine = (id) => API.delete(`/medicine/${id}`);
 
 // Profile
-export const profilePosts = (id) => API.get(`/job/user/${id}`);
+export const profilePosts = (id) => API.get(`/medicine/user/${id}`);
 export const updateProfilePhoto = (id, updatedProfile) =>
   API.patch(`/auth/profile/${id}`, updatedProfile);
 

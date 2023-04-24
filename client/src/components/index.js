@@ -4,7 +4,6 @@ import Textarea from "./Textarea";
 import Select from "./Select";
 import SwitchBtn from "./Switch";
 import Navbar from "./Navbar";
-import PostCard from "./PostCard";
 import MedicineCard from "./MedicineCard";
 import Avatar from "./Avatar";
 import Loader from "./Loader";
@@ -20,7 +19,6 @@ export {
   Select,
   SwitchBtn,
   Navbar,
-  PostCard,
   MedicineCard,
   Loader,
   Avatar,

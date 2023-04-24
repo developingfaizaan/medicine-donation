@@ -1,16 +1,12 @@
 import {Link} from 'react-router-dom';
 
-import { useAuth } from "../context/auth";
 import {Avatar} from "./"
 
-const MedicineCard = ({job}) => {
+const MedicineCard = ({medicine}) => {
     const {
         name, description, qty, condition, image, _id:id,
-        postedBy: { name: userName, profilePhoto, _id: userId },
-      } = job;
-
-    const { user } = useAuth();
-
+        postedBy: { name: userName, profilePhoto },
+      } = medicine;
   
   return (
     <Link to={`/medicine/${id}`}>

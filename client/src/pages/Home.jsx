@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 
-import { fetchJobs } from "../api";
-import { PostCard, Loader } from "../components";
+import { fetchmedicines } from "../api";
+import { Loader } from "../components";
 import MedicineCard from "../components/MedicineCard";
 
 const HomePage = () => {
-  const [jobs, setJobs] = useState([]);
+  const [medicines, setmedicines] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchJobs()
+    fetchmedicines()
       .then(({data}) => {
-        setJobs(data.jobs.reverse());
+        setmedicines(data.medicines.reverse());
         setLoading(false);
       })
       .catch((error) => console.log(error));
@@ -22,14 +22,13 @@ const HomePage = () => {
       
       {loading && <Loader />}
 
-      {!loading && jobs.length === 0 && (
+      {!loading && medicines.length === 0 && (
         <h1 className="text-3xl sm:text-4xl font-semibold text-center mb-8 sm:mb-14">
           No Medicines to show!
         </h1>
       )}
 
-      {/* {jobs && jobs.map((job) => <PostCard job={job} key={job._id} /> )} */}
-      {jobs && jobs.map((job) => <MedicineCard job={job} key={job._id} /> )}
+      {medicines && medicines.map((medicine) => <MedicineCard medicine={medicine} key={medicine._id} /> )}
     </main>
   );
 };

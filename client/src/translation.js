@@ -19,7 +19,7 @@ const translation = {
     IdGovCard: "Behördlich ausgestellter Identitätsnachweis",
     ProfilePhoto: "Bild für Ihr Profilfoto",
     // Create Page
-    CreateJob: "Erstellen Sie einen Jobeintrag in Sekunden",
+    Createmedicine: "Erstellen Sie einen medicineeintrag in Sekunden",
     Title: "Titel",
     Description: "Beschreibung",
     Location: "Ort",
@@ -72,7 +72,7 @@ const translation = {
     IdGovCard: "ID from government-issued card",
     ProfilePhoto: "Image for Profile Photo",
     // Create Page
-    CreateJob: "Create a Job Listing",
+    Createmedicine: "Create a medicine Listing",
     Title: "Title",
     Description: "Description",
     Location: "Location",
